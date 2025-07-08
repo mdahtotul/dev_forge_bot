@@ -1,5 +1,5 @@
 # app/handlers/start.py
-from aiogram import Router, types, F
+from aiogram import Router, types
 from aiogram.filters import Command
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.models import User
@@ -31,3 +31,4 @@ async def start_handler(message: types.Message, session: AsyncSession):
     except Exception as e:
         logger.error(f"Error in start_handler: {e}")
         await message.answer("❗ An error occurred while processing your request.")
+        raise e
