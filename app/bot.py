@@ -1,4 +1,5 @@
 # app/bot.py
+
 from aiogram import Bot, Dispatcher
 
 from app.config import bot_token
