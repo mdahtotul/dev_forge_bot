@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 
 load_dotenv()  # load environment variables ASAP
 
+debug = True if os.getenv("DEBUG") == "1" else False
 
 bot_username = os.getenv("BOT_USERNAME")
 bot_token = os.getenv("BOT_TOKEN")
