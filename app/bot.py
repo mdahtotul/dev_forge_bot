@@ -3,7 +3,7 @@
 from aiogram import Bot, Dispatcher
 
 from app.config import bot_token
-from app.handlers import start, user
+from app.handlers import start, user, command
 from app.db.middleware import DBSessionMiddleware, BaseMiddleware
 
 
@@ -17,3 +17,4 @@ dp.message.middleware(DBSessionMiddleware())
 # routes for handling commands
 dp.include_router(start.router)
 dp.include_router(user.router)
+# dp.include_router(command.router)

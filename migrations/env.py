@@ -4,7 +4,7 @@ import asyncio
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy import pool
 from alembic import context
-from app.db.base import Base
+from app.db.model.index import metadata
 from app.config import db_url
 from dotenv import load_dotenv
 
@@ -17,19 +17,11 @@ config = context.config
 # Interpret the config file for Python logging
 fileConfig(config.config_file_name)
 
-# Set sqlalchemy.url dynamically from environment variables
-# db_user = os.getenv("DB_USER", "postgres")
-# db_pass = os.getenv("DB_PASS", "postgres")
-# db_host = os.getenv("DB_HOST", "localhost")
-# db_port = os.getenv("DB_PORT", "5432")
-# db_name = os.getenv("DB_NAME", "dev_forge_bot")
-# db_url = f"postgresql+asyncpg://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}"
-
 # Update the config with the constructed URL
 config.set_main_option("sqlalchemy.url", db_url)
 
 # SQLAlchemy metadata
-target_metadata = Base.metadata
+target_metadata = metadata
 
 
 async def run_migrations_online() -> None:

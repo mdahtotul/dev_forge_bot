@@ -3,7 +3,7 @@ from aiogram import Router, types
 from aiogram.filters import Command
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
-from app.db.models import User
+from app.db.model.user import User
 from app.db.error_handler import db_error_handler
 
 from utils.logger import logger
@@ -13,7 +13,7 @@ router = Router()
 
 @router.message(Command("list_users"))
 @db_error_handler()
-async def list_users(message: types.Message, session: AsyncSession):
+async def list_users_handler(message: types.Message, session: AsyncSession):
     """
     List all users in the database.
     """
@@ -25,7 +25,6 @@ async def list_users(message: types.Message, session: AsyncSession):
             return
 
         response_lines = ""
-        print(f"🚀 Users found: {len(users)}")
         for user in users:
             username = user.username if user.username else "No username"
             id = user.telegram_id
@@ -44,7 +43,6 @@ async def profile_handler(message: types.Message, session: AsyncSession):
         result = await session.scalar(
             select(User).where(User.telegram_id == message.from_user.id)
         )
-        print(f"🚀 {result.__dict__}")
         if not result:
             await message.answer("🚫 You are not registered in the database.")
             return
@@ -66,7 +64,7 @@ async def profile_handler(message: types.Message, session: AsyncSession):
 
 @router.message(Command("delete_user"))
 @db_error_handler()
-async def delete_user(message: types.Message, session: AsyncSession):
+async def delete_user_handler(message: types.Message, session: AsyncSession):
     """
     Delete a user by their Telegram ID.
     """

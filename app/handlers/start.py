@@ -2,7 +2,7 @@
 from aiogram import Router, types
 from aiogram.filters import Command
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.db.models import User
+from app.db.model.user import User
 from app.db.error_handler import db_error_handler
 
 from utils.logger import logger
